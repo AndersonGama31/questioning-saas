@@ -3,7 +3,7 @@ import OpenAI from 'openai';
 import { ELevel } from '@/interfaces';
 
 const openai = new OpenAI({
-  apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY
+  apiKey: ''
 });
 
 export async function generateQuestions(level: ELevel, count = 5) {
