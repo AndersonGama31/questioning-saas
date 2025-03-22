@@ -34,9 +34,6 @@ export async function POST(request: NextRequest) {
     if (!validLevels.includes(level)) {
       return NextResponse.json({ error: 'Nível inválido' }, { status: 400 });
     }
-    if (count < 1 || count > 10) {
-      return NextResponse.json({ error: 'Contagem inválida' }, { status: 400 });
-    }
     const existingQuestions = questions.questions.filter(question => question.level === level);
     if (existingQuestions.length >= count) {
       const selectedQuestions = existingQuestions.slice(0, count);
