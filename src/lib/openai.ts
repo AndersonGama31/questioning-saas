@@ -3,7 +3,7 @@ import OpenAI from 'openai';
 import { ELevel } from '@/interfaces';
 
 const openai = new OpenAI({
-  apiKey: ''
+  apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY
 });
 
 export async function generateQuestions(level: ELevel, count = 5) {
@@ -26,6 +26,8 @@ export async function generateQuestions(level: ELevel, count = 5) {
   3. Only one correct answer
   4. The correct answer identified
   5. A clear and concise grammatical explanation in English for why the answer is correct
+
+  You can't duplicate questions or use the same sentence structure.
   
   Return the data in the following JSON format:
   {

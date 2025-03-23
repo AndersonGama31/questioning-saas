@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 
 import LevelSelector from '@/components/level-selector';
 import QuizCard from '@/components/quiz-card';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { IQuestion } from '@/interfaces';
 
 export default function Quiz() {
@@ -15,6 +16,7 @@ export default function Quiz() {
   const [quizComplete, setQuizComplete] = useState(false);
   const [answeredQuestions, setAnsweredQuestions] = useState<number[]>([]);
   const questionRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [count, setCount] = useState('6');
 
   useEffect(() => {
     if (!level) return;
@@ -29,7 +31,7 @@ export default function Quiz() {
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ level, count: 20 })
+          body: JSON.stringify({ level, count: Number(count) })
         });
 
         if (!response.ok) {
@@ -91,6 +93,19 @@ export default function Quiz() {
     return (
       <div className="container mx-auto py-10 px-4">
         <h1 className="text-2xl font-bold mb-6 text-center">Quiz de Inglês</h1>
+        <div className="flex justify-center">
+          <Select onValueChange={value => setCount(value)} defaultValue="5">
+            <SelectTrigger className="w-full max-w-xs">
+              <SelectValue placeholder="Quantas perguntas?" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="5">5 perguntas</SelectItem>
+              <SelectItem value="10">10 perguntas</SelectItem>
+              <SelectItem value="15">15 perguntas</SelectItem>
+              <SelectItem value="20">20 perguntas</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
         <LevelSelector onSelectLevel={handleLevelSelect} />
       </div>
     );
